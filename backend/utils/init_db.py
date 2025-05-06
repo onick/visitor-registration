@@ -1,10 +1,55 @@
 """
 Script para inicializar la base de datos con datos de prueba
 """
+import os
+import sys
+
+# Añadir el directorio raíz al path para poder importar módulos
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 from models.database import db
 from models.event import Event
 from models.kiosk import Kiosk, KioskConfig
+from models.user import User
+from models.visitor import Visitor, VisitorCheckIn
+from models.notification import Notification
 import datetime
+
+def init_database():
+    """
+    Inicializar la base de datos creando todas las tablas
+    """
+    db.create_all()
+    print("Base de datos inicializada - tablas creadas")
+
+def create_admin_user(email="admin@ccb.do", password="Admin123!", first_name="Administrador", last_name="Sistema"):
+    """
+    Crear un usuario administrador si no existe
+    """
+    # Verificar si ya existe un administrador
+    admin = User.query.filter_by(role='admin').first()
+    if admin:
+        print(f"Usuario administrador ya existe: {admin.email}")
+        return admin.id
+    
+    # Crear un nuevo administrador
+    admin = User(
+        username="admin",
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        role="admin",
+        is_active=True,
+        created_at=datetime.datetime.utcnow()
+    )
+    admin.set_password(password)
+    db.session.add(admin)
+    db.session.commit()
+    
+    print(f"Usuario administrador creado: {admin.email}")
+    return admin.id
 
 def create_sample_data():
     """
@@ -100,3 +145,30 @@ def create_sample_data():
         "kiosk_id": kiosk.id,
         "events": [event1.id, event2.id, event3.id, event4.id, event5.id]
     }
+
+if __name__ == "__main__":
+    # Importar la aplicación para tener el contexto de base de datos
+    from app import create_app
+    
+    # Configurar variables de entorno para desarrollo
+    os.environ['FLASK_ENV'] = 'development'
+    os.environ['USE_SQLITE'] = 'true'
+    os.environ['ADMIN_EMAIL'] = 'admin@ccb.do'
+    os.environ['ADMIN_PASSWORD'] = 'Admin123!'
+    
+    app = create_app({
+        'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+        'SQLALCHEMY_DATABASE_URI': 'sqlite:///dev.db'
+    })
+    
+    with app.app_context():
+        # Inicializar la base de datos
+        init_database()
+        
+        # Crear usuario administrador
+        admin_id = create_admin_user()
+        
+        # Crear datos de ejemplo si se desea
+        create_sample_data()
+        
+        print("Inicialización de base de datos completada")

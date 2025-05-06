@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Servicio de backend
+  backend:
+    build: ./backend
+    restart: always
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/visitor_db
+      - DEBUG=True
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    ports:
+      - "5000:5000"
+
+  # Servicio de frontend
+  frontend:
+    build: ./frontend
+    restart: always
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+  # Servicio de base de datos PostgreSQL
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=visitor_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Servicio de Redis para Celery
+  redis:
+    image: redis:6
+    restart: always
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+  # Servicio de administración de base de datos
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+  redisdata: 
