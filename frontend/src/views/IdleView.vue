@@ -1,163 +1,72 @@
 <template>
-  <div class="kiosk-container idle-container">
-    <div class="idle-content">
-      <img src="../assets/logo.png" alt="Centro Cultural Banreservas" class="idle-logo" />
-      
-      <div class="idle-message">
-        <h1 class="idle-title">{{ translations.title }}</h1>
-        <p class="idle-subtitle">{{ translations.subtitle }}</p>
-      </div>
-      
-      <div class="slideshow">
-        <div 
-          v-for="(slide, index) in slides" 
-          :key="index" 
-          :class="['slide', { active: currentSlide === index }]"
-          :style="{ backgroundImage: `url(${slide.image})` }"
-        >
-          <div class="slide-content">
-            <h2 class="slide-title">{{ slide.title }}</h2>
-            <p class="slide-description">{{ slide.description }}</p>
+  <div class="idle-view">
+    <div class="slideshow">
+      <div class="slide active">
+        <div class="slide-content">
+          <div class="logo-container">
+            <img src="@/assets/images/logo.png" alt="Centro Cultural Banreservas" class="logo-image">
           </div>
+          <p>Sistema de Registro de Visitantes</p>
         </div>
       </div>
     </div>
     
-    <div class="touch-prompt" @click="goHome">
-      <div class="touch-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M13 11.5a1.5 1.5 0 0 1 3 0v7.5a1.5 1.5 0 0 1-3 0v-7.5z"></path>
-          <path d="M10 13.5a1.5 1.5 0 0 1 3 0v5.5a1.5 1.5 0 0 1-3 0v-5.5z"></path>
-          <path d="M7 15.5a1.5 1.5 0 0 1 3 0v3.5a1.5 1.5 0 0 1-3 0v-3.5z"></path>
-          <path d="M18 9a3 3 0 0 0-3-3"></path>
-          <path d="M18 6a6 6 0 0 0-6-6"></path>
-        </svg>
-      </div>
-      <p class="touch-text">{{ translations.touchPrompt }}</p>
+    <div class="footer">
+      <p>Toque la pantalla para comenzar</p>
+      <div class="time">{{ currentTime }}</div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
 export default {
   name: 'IdleView',
-  
-  setup() {
-    const store = useStore()
-    const router = useRouter()
-    const currentSlide = ref(0)
-    const slideInterval = ref(null)
-    
-    const language = computed(() => store.getters.kioskLanguage)
-    
-    const translations = computed(() => {
-      if (language.value === 'en') {
-        return {
-          title: 'Welcome to Centro Cultural Banreservas',
-          subtitle: 'Explore our cultural events and exhibitions',
-          touchPrompt: 'Touch the screen to start'
-        }
-      } else {
-        return {
-          title: 'Bienvenido al Centro Cultural Banreservas',
-          subtitle: 'Explore nuestros eventos culturales y exposiciones',
-          touchPrompt: 'Toque la pantalla para comenzar'
-        }
-      }
-    })
-    
-    const slides = [
-      {
-        title: 'Exposiciones Artísticas',
-        description: 'Conozca nuestras exposiciones de arte contemporáneo y clásico',
-        image: require('../assets/slide1.jpg')
-      },
-      {
-        title: 'Eventos Culturales',
-        description: 'Participe en nuestros eventos culturales durante todo el año',
-        image: require('../assets/slide2.jpg')
-      },
-      {
-        title: 'Talleres Educativos',
-        description: 'Aprenda con nuestros talleres educativos para todas las edades',
-        image: require('../assets/slide3.jpg')
-      }
-    ]
-    
-    const goHome = () => {
-      router.push('/')
-    }
-    
-    const startSlideshow = () => {
-      slideInterval.value = setInterval(() => {
-        currentSlide.value = (currentSlide.value + 1) % slides.length
-      }, 5000)
-    }
-    
-    onMounted(() => {
-      startSlideshow()
-    })
-    
-    onBeforeUnmount(() => {
-      clearInterval(slideInterval.value)
-    })
-    
+  data() {
     return {
-      translations,
-      slides,
-      currentSlide,
-      goHome
+      currentTime: '',
+      timer: null
+    };
+  },
+  mounted() {
+    this.updateTime();
+    this.timer = setInterval(this.updateTime, 1000);
+    
+    document.addEventListener('click', this.handleClick);
+    document.addEventListener('touchstart', this.handleClick);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
+    document.removeEventListener('click', this.handleClick);
+    document.removeEventListener('touchstart', this.handleClick);
+  },
+  methods: {
+    updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      this.currentTime = `${hours}:${minutes}`;
+    },
+    handleClick() {
+      this.$router.push('/kiosk/welcome');
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.idle-container {
-  background-color: var(--primary-color);
-  color: var(--white);
-}
-
-.idle-content {
+.idle-view {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
-  padding-top: 50px;
-}
-
-.idle-logo {
-  max-width: 180px;
-  margin-bottom: 20px;
-}
-
-.idle-message {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.idle-title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.idle-subtitle {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  background-color: #f5f5f5;
+  overflow: hidden;
 }
 
 .slideshow {
+  flex: 1;
   position: relative;
-  width: 100%;
-  height: 50vh;
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .slide {
@@ -166,12 +75,13 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  display: flex;
-  align-items: flex-end;
+  background: linear-gradient(135deg, #512da8, #140078);
+  color: white;
 }
 
 .slide.active {
@@ -179,52 +89,71 @@ export default {
 }
 
 .slide-content {
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  padding: 30px;
-  width: 100%;
-  color: white;
+  text-align: center;
+  padding: 20px;
 }
 
-.slide-title {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+.slide-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-.slide-description {
-  font-size: 1.1rem;
-  opacity: 0.9;
+.slide-content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.touch-prompt {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+.logo-container {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 30px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  animation: pulse 2s infinite;
+  justify-content: center;
 }
 
-.touch-icon {
-  margin-bottom: 10px;
+.logo-image {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
-.touch-text {
+.footer {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
   font-size: 1.2rem;
+  margin: 0;
+}
+
+.time {
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
-@keyframes pulse {
-  0% {
-    transform: translateX(-50%) scale(1);
+@media (max-width: 768px) {
+  .slide-content p {
+    font-size: 1.2rem;
   }
-  50% {
-    transform: translateX(-50%) scale(1.05);
+  
+  .logo-container {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 20px;
   }
-  100% {
-    transform: translateX(-50%) scale(1);
+  
+  .footer p {
+    font-size: 1rem;
+  }
+  
+  .time {
+    font-size: 1.2rem;
   }
 }
 </style>

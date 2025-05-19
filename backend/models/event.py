@@ -17,6 +17,8 @@ class Event(db.Model):
     end_date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(500))
+    # Campo type comentado para evitar errores con la base de datos PostgreSQL
+    # type = db.Column(db.String(50), default="otro")  # Tipo de evento: cine, exposición, charla, etc.
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

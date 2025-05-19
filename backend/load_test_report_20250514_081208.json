@@ -1,0 +1,2382 @@
+{
+  "config": {
+    "num_requests": 200,
+    "max_workers": 20,
+    "api_url": "http://localhost:8080/api/v1"
+  },
+  "summary": {
+    "total_duration": 0.5776982307434082,
+    "requests_per_second": 346.2015103328791,
+    "successful": 91,
+    "failed": 109,
+    "avg_response_time": 0.05508558750152588,
+    "min_response_time": 0.014384031295776367,
+    "max_response_time": 0.12646794319152832
+  },
+  "results": [
+    {
+      "index": 3,
+      "status": 201,
+      "duration": 0.04395699501037598,
+      "success": true,
+      "data": {
+        "checkin_id": 3,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "D952JB",
+        "success": true,
+        "visitor_id": 3
+      },
+      "error": null
+    },
+    {
+      "index": 6,
+      "status": 201,
+      "duration": 0.04278397560119629,
+      "success": true,
+      "data": {
+        "checkin_id": 4,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "US8RY8",
+        "success": true,
+        "visitor_id": 4
+      },
+      "error": null
+    },
+    {
+      "index": 20,
+      "status": 201,
+      "duration": 0.014384031295776367,
+      "success": true,
+      "data": {
+        "checkin_id": 5,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "4TNR9A",
+        "success": true,
+        "visitor_id": 8
+      },
+      "error": null
+    },
+    {
+      "index": 21,
+      "status": 201,
+      "duration": 0.0157778263092041,
+      "success": true,
+      "data": {
+        "checkin_id": 6,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "E84EGI",
+        "success": true,
+        "visitor_id": 9
+      },
+      "error": null
+    },
+    {
+      "index": 10,
+      "status": 400,
+      "duration": 0.06156325340270996,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 2,
+      "status": 201,
+      "duration": 0.06753897666931152,
+      "success": true,
+      "data": {
+        "checkin_id": 2,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "3TCJ7G",
+        "success": true,
+        "visitor_id": 2
+      },
+      "error": null
+    },
+    {
+      "index": 1,
+      "status": 201,
+      "duration": 0.07779598236083984,
+      "success": true,
+      "data": {
+        "checkin_id": 1,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "RWNSMQ",
+        "success": true,
+        "visitor_id": 1
+      },
+      "error": null
+    },
+    {
+      "index": 0,
+      "status": 201,
+      "duration": 0.08096981048583984,
+      "success": true,
+      "data": {
+        "checkin_id": 7,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "V9VKE7",
+        "success": true,
+        "visitor_id": 5
+      },
+      "error": null
+    },
+    {
+      "index": 5,
+      "status": 201,
+      "duration": 0.08120298385620117,
+      "success": true,
+      "data": {
+        "checkin_id": 8,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "SGFMJR",
+        "success": true,
+        "visitor_id": 6
+      },
+      "error": null
+    },
+    {
+      "index": 7,
+      "status": 201,
+      "duration": 0.08890390396118164,
+      "success": true,
+      "data": {
+        "checkin_id": 10,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "EKIUGI",
+        "success": true,
+        "visitor_id": 10
+      },
+      "error": null
+    },
+    {
+      "index": 8,
+      "status": 400,
+      "duration": 0.08926105499267578,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 24,
+      "status": 400,
+      "duration": 0.031371116638183594,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 4,
+      "status": 201,
+      "duration": 0.10150313377380371,
+      "success": true,
+      "data": {
+        "checkin_id": 9,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "HNWWHH",
+        "success": true,
+        "visitor_id": 7
+      },
+      "error": null
+    },
+    {
+      "index": 13,
+      "status": 201,
+      "duration": 0.09377002716064453,
+      "success": true,
+      "data": {
+        "checkin_id": 11,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "QTZ96H",
+        "success": true,
+        "visitor_id": 11
+      },
+      "error": null
+    },
+    {
+      "index": 23,
+      "status": 201,
+      "duration": 0.0438847541809082,
+      "success": true,
+      "data": {
+        "checkin_id": 13,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "L0NN3X",
+        "success": true,
+        "visitor_id": 13
+      },
+      "error": null
+    },
+    {
+      "index": 14,
+      "status": 201,
+      "duration": 0.09995698928833008,
+      "success": true,
+      "data": {
+        "checkin_id": 14,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "NO6JDR",
+        "success": true,
+        "visitor_id": 15
+      },
+      "error": null
+    },
+    {
+      "index": 16,
+      "status": 201,
+      "duration": 0.10129308700561523,
+      "success": true,
+      "data": {
+        "checkin_id": 16,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "UTQS33",
+        "success": true,
+        "visitor_id": 17
+      },
+      "error": null
+    },
+    {
+      "index": 26,
+      "status": 400,
+      "duration": 0.04137396812438965,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 22,
+      "status": 201,
+      "duration": 0.0635068416595459,
+      "success": true,
+      "data": {
+        "checkin_id": 17,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "OVT7H6",
+        "success": true,
+        "visitor_id": 16
+      },
+      "error": null
+    },
+    {
+      "index": 12,
+      "status": 201,
+      "duration": 0.11525821685791016,
+      "success": true,
+      "data": {
+        "checkin_id": 15,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "Q2FZJN",
+        "success": true,
+        "visitor_id": 14
+      },
+      "error": null
+    },
+    {
+      "index": 9,
+      "status": 201,
+      "duration": 0.12210583686828613,
+      "success": true,
+      "data": {
+        "checkin_id": 21,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "J5U87J",
+        "success": true,
+        "visitor_id": 20
+      },
+      "error": null
+    },
+    {
+      "index": 15,
+      "status": 201,
+      "duration": 0.11566901206970215,
+      "success": true,
+      "data": {
+        "checkin_id": 20,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "XAODKC",
+        "success": true,
+        "visitor_id": 18
+      },
+      "error": null
+    },
+    {
+      "index": 11,
+      "status": 201,
+      "duration": 0.12646794319152832,
+      "success": true,
+      "data": {
+        "checkin_id": 12,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "EP8UF4",
+        "success": true,
+        "visitor_id": 12
+      },
+      "error": null
+    },
+    {
+      "index": 19,
+      "status": 201,
+      "duration": 0.1190788745880127,
+      "success": true,
+      "data": {
+        "checkin_id": 18,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "WHXUH6",
+        "success": true,
+        "visitor_id": 21
+      },
+      "error": null
+    },
+    {
+      "index": 17,
+      "status": 201,
+      "duration": 0.12329220771789551,
+      "success": true,
+      "data": {
+        "checkin_id": 22,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "7W0H44",
+        "success": true,
+        "visitor_id": 23
+      },
+      "error": null
+    },
+    {
+      "index": 25,
+      "status": 201,
+      "duration": 0.0708611011505127,
+      "success": true,
+      "data": {
+        "checkin_id": 23,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "G2Q4I9",
+        "success": true,
+        "visitor_id": 22
+      },
+      "error": null
+    },
+    {
+      "index": 32,
+      "status": 400,
+      "duration": 0.0358579158782959,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 27,
+      "status": 201,
+      "duration": 0.05844402313232422,
+      "success": true,
+      "data": {
+        "checkin_id": 24,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "KSJ5EZ",
+        "success": true,
+        "visitor_id": 24
+      },
+      "error": null
+    },
+    {
+      "index": 18,
+      "status": 201,
+      "duration": 0.12479996681213379,
+      "success": true,
+      "data": {
+        "checkin_id": 19,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "WTFHUW",
+        "success": true,
+        "visitor_id": 19
+      },
+      "error": null
+    },
+    {
+      "index": 31,
+      "status": 201,
+      "duration": 0.04665493965148926,
+      "success": true,
+      "data": {
+        "checkin_id": 26,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "R70T3D",
+        "success": true,
+        "visitor_id": 26
+      },
+      "error": null
+    },
+    {
+      "index": 30,
+      "status": 201,
+      "duration": 0.05307912826538086,
+      "success": true,
+      "data": {
+        "checkin_id": 25,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "TVWT2K",
+        "success": true,
+        "visitor_id": 25
+      },
+      "error": null
+    },
+    {
+      "index": 29,
+      "status": 201,
+      "duration": 0.0576319694519043,
+      "success": true,
+      "data": {
+        "checkin_id": 27,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "EPGE8T",
+        "success": true,
+        "visitor_id": 27
+      },
+      "error": null
+    },
+    {
+      "index": 28,
+      "status": 201,
+      "duration": 0.06682395935058594,
+      "success": true,
+      "data": {
+        "checkin_id": 28,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "25DH4D",
+        "success": true,
+        "visitor_id": 28
+      },
+      "error": null
+    },
+    {
+      "index": 35,
+      "status": 201,
+      "duration": 0.04419422149658203,
+      "success": true,
+      "data": {
+        "checkin_id": 30,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "XECENR",
+        "success": true,
+        "visitor_id": 30
+      },
+      "error": null
+    },
+    {
+      "index": 33,
+      "status": 201,
+      "duration": 0.05415511131286621,
+      "success": true,
+      "data": {
+        "checkin_id": 29,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "UMPY9F",
+        "success": true,
+        "visitor_id": 29
+      },
+      "error": null
+    },
+    {
+      "index": 36,
+      "status": 400,
+      "duration": 0.04610896110534668,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 34,
+      "status": 201,
+      "duration": 0.05736970901489258,
+      "success": true,
+      "data": {
+        "checkin_id": 31,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "8OZDSQ",
+        "success": true,
+        "visitor_id": 31
+      },
+      "error": null
+    },
+    {
+      "index": 41,
+      "status": 201,
+      "duration": 0.05114388465881348,
+      "success": true,
+      "data": {
+        "checkin_id": 33,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "TKAKV8",
+        "success": true,
+        "visitor_id": 35
+      },
+      "error": null
+    },
+    {
+      "index": 42,
+      "status": 201,
+      "duration": 0.04694008827209473,
+      "success": true,
+      "data": {
+        "checkin_id": 36,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "GRODXH",
+        "success": true,
+        "visitor_id": 36
+      },
+      "error": null
+    },
+    {
+      "index": 38,
+      "status": 201,
+      "duration": 0.05979108810424805,
+      "success": true,
+      "data": {
+        "checkin_id": 32,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "04N30Y",
+        "success": true,
+        "visitor_id": 34
+      },
+      "error": null
+    },
+    {
+      "index": 37,
+      "status": 201,
+      "duration": 0.06765198707580566,
+      "success": true,
+      "data": {
+        "checkin_id": 34,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "Q5JGIS",
+        "success": true,
+        "visitor_id": 32
+      },
+      "error": null
+    },
+    {
+      "index": 44,
+      "status": 400,
+      "duration": 0.053481101989746094,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 43,
+      "status": 201,
+      "duration": 0.05631899833679199,
+      "success": true,
+      "data": {
+        "checkin_id": 38,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "OE2IHK",
+        "success": true,
+        "visitor_id": 38
+      },
+      "error": null
+    },
+    {
+      "index": 48,
+      "status": 201,
+      "duration": 0.05131387710571289,
+      "success": true,
+      "data": {
+        "checkin_id": 39,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "5PVQX4",
+        "success": true,
+        "visitor_id": 39
+      },
+      "error": null
+    },
+    {
+      "index": 46,
+      "status": 400,
+      "duration": 0.05489993095397949,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 39,
+      "status": 201,
+      "duration": 0.0713801383972168,
+      "success": true,
+      "data": {
+        "checkin_id": 35,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "HB6T6W",
+        "success": true,
+        "visitor_id": 33
+      },
+      "error": null
+    },
+    {
+      "index": 40,
+      "status": 201,
+      "duration": 0.06987810134887695,
+      "success": true,
+      "data": {
+        "checkin_id": 37,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "GFMH2S",
+        "success": true,
+        "visitor_id": 37
+      },
+      "error": null
+    },
+    {
+      "index": 47,
+      "status": 201,
+      "duration": 0.058825016021728516,
+      "success": true,
+      "data": {
+        "checkin_id": 40,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "KVBCWJ",
+        "success": true,
+        "visitor_id": 40
+      },
+      "error": null
+    },
+    {
+      "index": 45,
+      "status": 201,
+      "duration": 0.06266307830810547,
+      "success": true,
+      "data": {
+        "checkin_id": 41,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "K8KVZO",
+        "success": true,
+        "visitor_id": 41
+      },
+      "error": null
+    },
+    {
+      "index": 49,
+      "status": 201,
+      "duration": 0.06320905685424805,
+      "success": true,
+      "data": {
+        "checkin_id": 42,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "HX11F6",
+        "success": true,
+        "visitor_id": 42
+      },
+      "error": null
+    },
+    {
+      "index": 52,
+      "status": 201,
+      "duration": 0.06560993194580078,
+      "success": true,
+      "data": {
+        "checkin_id": 45,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "T1MT1B",
+        "success": true,
+        "visitor_id": 44
+      },
+      "error": null
+    },
+    {
+      "index": 56,
+      "status": 201,
+      "duration": 0.056025028228759766,
+      "success": true,
+      "data": {
+        "checkin_id": 44,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "SRH9J4",
+        "success": true,
+        "visitor_id": 46
+      },
+      "error": null
+    },
+    {
+      "index": 50,
+      "status": 201,
+      "duration": 0.0734710693359375,
+      "success": true,
+      "data": {
+        "checkin_id": 43,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "4BLS2B",
+        "success": true,
+        "visitor_id": 43
+      },
+      "error": null
+    },
+    {
+      "index": 53,
+      "status": 201,
+      "duration": 0.06638717651367188,
+      "success": true,
+      "data": {
+        "checkin_id": 46,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "ZVERS9",
+        "success": true,
+        "visitor_id": 47
+      },
+      "error": null
+    },
+    {
+      "index": 51,
+      "status": 201,
+      "duration": 0.07450699806213379,
+      "success": true,
+      "data": {
+        "checkin_id": 49,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "KEO7DC",
+        "success": true,
+        "visitor_id": 45
+      },
+      "error": null
+    },
+    {
+      "index": 55,
+      "status": 201,
+      "duration": 0.0637049674987793,
+      "success": true,
+      "data": {
+        "checkin_id": 47,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "X0095T",
+        "success": true,
+        "visitor_id": 48
+      },
+      "error": null
+    },
+    {
+      "index": 54,
+      "status": 201,
+      "duration": 0.06731009483337402,
+      "success": true,
+      "data": {
+        "checkin_id": 48,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "RWOMO5",
+        "success": true,
+        "visitor_id": 49
+      },
+      "error": null
+    },
+    {
+      "index": 59,
+      "status": 400,
+      "duration": 0.04766392707824707,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 58,
+      "status": 400,
+      "duration": 0.04934191703796387,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 57,
+      "status": 201,
+      "duration": 0.05475592613220215,
+      "success": true,
+      "data": {
+        "checkin_id": 50,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "TONTRH",
+        "success": true,
+        "visitor_id": 50
+      },
+      "error": null
+    },
+    {
+      "index": 60,
+      "status": 400,
+      "duration": 0.048665761947631836,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 63,
+      "status": 400,
+      "duration": 0.04689598083496094,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 66,
+      "status": 400,
+      "duration": 0.05054211616516113,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 67,
+      "status": 400,
+      "duration": 0.053411006927490234,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 61,
+      "status": 201,
+      "duration": 0.0632469654083252,
+      "success": true,
+      "data": {
+        "checkin_id": 52,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "OG6HY9",
+        "success": true,
+        "visitor_id": 51
+      },
+      "error": null
+    },
+    {
+      "index": 68,
+      "status": 201,
+      "duration": 0.056731224060058594,
+      "success": true,
+      "data": {
+        "checkin_id": 53,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "08HGF9",
+        "success": true,
+        "visitor_id": 55
+      },
+      "error": null
+    },
+    {
+      "index": 64,
+      "status": 201,
+      "duration": 0.06499671936035156,
+      "success": true,
+      "data": {
+        "checkin_id": 51,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "ENDJ95",
+        "success": true,
+        "visitor_id": 52
+      },
+      "error": null
+    },
+    {
+      "index": 72,
+      "status": 400,
+      "duration": 0.04770183563232422,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 73,
+      "status": 400,
+      "duration": 0.044172048568725586,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 65,
+      "status": 201,
+      "duration": 0.07304072380065918,
+      "success": true,
+      "data": {
+        "checkin_id": 55,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "OA7WH3",
+        "success": true,
+        "visitor_id": 53
+      },
+      "error": null
+    },
+    {
+      "index": 62,
+      "status": 201,
+      "duration": 0.07861995697021484,
+      "success": true,
+      "data": {
+        "checkin_id": 54,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "TMQPLS",
+        "success": true,
+        "visitor_id": 54
+      },
+      "error": null
+    },
+    {
+      "index": 74,
+      "status": 400,
+      "duration": 0.04974794387817383,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 76,
+      "status": 400,
+      "duration": 0.048037052154541016,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 77,
+      "status": 400,
+      "duration": 0.04995894432067871,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 69,
+      "status": 201,
+      "duration": 0.07430601119995117,
+      "success": true,
+      "data": {
+        "checkin_id": 56,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "JE2XF4",
+        "success": true,
+        "visitor_id": 56
+      },
+      "error": null
+    },
+    {
+      "index": 78,
+      "status": 400,
+      "duration": 0.05227088928222656,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 75,
+      "status": 201,
+      "duration": 0.05981612205505371,
+      "success": true,
+      "data": {
+        "checkin_id": 59,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "BGAFJE",
+        "success": true,
+        "visitor_id": 59
+      },
+      "error": null
+    },
+    {
+      "index": 71,
+      "status": 201,
+      "duration": 0.06684279441833496,
+      "success": true,
+      "data": {
+        "checkin_id": 58,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "WCQ4QN",
+        "success": true,
+        "visitor_id": 58
+      },
+      "error": null
+    },
+    {
+      "index": 70,
+      "status": 201,
+      "duration": 0.07023382186889648,
+      "success": true,
+      "data": {
+        "checkin_id": 57,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "SIHNYM",
+        "success": true,
+        "visitor_id": 57
+      },
+      "error": null
+    },
+    {
+      "index": 79,
+      "status": 400,
+      "duration": 0.053411006927490234,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 80,
+      "status": 400,
+      "duration": 0.05608034133911133,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 81,
+      "status": 400,
+      "duration": 0.05428314208984375,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 84,
+      "status": 400,
+      "duration": 0.046819210052490234,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 83,
+      "status": 201,
+      "duration": 0.05597090721130371,
+      "success": true,
+      "data": {
+        "checkin_id": 61,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "F9IGU7",
+        "success": true,
+        "visitor_id": 61
+      },
+      "error": null
+    },
+    {
+      "index": 85,
+      "status": 400,
+      "duration": 0.04992222785949707,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 88,
+      "status": 400,
+      "duration": 0.042584896087646484,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 82,
+      "status": 201,
+      "duration": 0.06829500198364258,
+      "success": true,
+      "data": {
+        "checkin_id": 60,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "1TKRSQ",
+        "success": true,
+        "visitor_id": 60
+      },
+      "error": null
+    },
+    {
+      "index": 90,
+      "status": 400,
+      "duration": 0.04440188407897949,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 87,
+      "status": 201,
+      "duration": 0.04976201057434082,
+      "success": true,
+      "data": {
+        "checkin_id": 62,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "GQEQ49",
+        "success": true,
+        "visitor_id": 62
+      },
+      "error": null
+    },
+    {
+      "index": 86,
+      "status": 201,
+      "duration": 0.06026482582092285,
+      "success": true,
+      "data": {
+        "checkin_id": 63,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "676MUQ",
+        "success": true,
+        "visitor_id": 63
+      },
+      "error": null
+    },
+    {
+      "index": 92,
+      "status": 400,
+      "duration": 0.04789304733276367,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 93,
+      "status": 400,
+      "duration": 0.044934988021850586,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 96,
+      "status": 400,
+      "duration": 0.050379037857055664,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 99,
+      "status": 400,
+      "duration": 0.05117225646972656,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 98,
+      "status": 400,
+      "duration": 0.054029226303100586,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 91,
+      "status": 201,
+      "duration": 0.06667494773864746,
+      "success": true,
+      "data": {
+        "checkin_id": 64,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "XDZPVQ",
+        "success": true,
+        "visitor_id": 64
+      },
+      "error": null
+    },
+    {
+      "index": 101,
+      "status": 400,
+      "duration": 0.05067586898803711,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 89,
+      "status": 201,
+      "duration": 0.08229303359985352,
+      "success": true,
+      "data": {
+        "checkin_id": 65,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "0Y8AEN",
+        "success": true,
+        "visitor_id": 65
+      },
+      "error": null
+    },
+    {
+      "index": 100,
+      "status": 201,
+      "duration": 0.060710906982421875,
+      "success": true,
+      "data": {
+        "checkin_id": 68,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "SHD33V",
+        "success": true,
+        "visitor_id": 68
+      },
+      "error": null
+    },
+    {
+      "index": 104,
+      "status": 400,
+      "duration": 0.044953107833862305,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 105,
+      "status": 400,
+      "duration": 0.04657626152038574,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 107,
+      "status": 400,
+      "duration": 0.04197287559509277,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 95,
+      "status": 201,
+      "duration": 0.07495617866516113,
+      "success": true,
+      "data": {
+        "checkin_id": 69,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "D1ZPU5",
+        "success": true,
+        "visitor_id": 69
+      },
+      "error": null
+    },
+    {
+      "index": 97,
+      "status": 201,
+      "duration": 0.07785606384277344,
+      "success": true,
+      "data": {
+        "checkin_id": 67,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "LAHYZS",
+        "success": true,
+        "visitor_id": 67
+      },
+      "error": null
+    },
+    {
+      "index": 94,
+      "status": 201,
+      "duration": 0.08170413970947266,
+      "success": true,
+      "data": {
+        "checkin_id": 66,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "VJBWG6",
+        "success": true,
+        "visitor_id": 66
+      },
+      "error": null
+    },
+    {
+      "index": 109,
+      "status": 400,
+      "duration": 0.04645514488220215,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 102,
+      "status": 201,
+      "duration": 0.06491494178771973,
+      "success": true,
+      "data": {
+        "checkin_id": 70,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "BTQO0L",
+        "success": true,
+        "visitor_id": 70
+      },
+      "error": null
+    },
+    {
+      "index": 110,
+      "status": 400,
+      "duration": 0.0494990348815918,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 103,
+      "status": 201,
+      "duration": 0.06568193435668945,
+      "success": true,
+      "data": {
+        "checkin_id": 71,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "IEHU7S",
+        "success": true,
+        "visitor_id": 71
+      },
+      "error": null
+    },
+    {
+      "index": 114,
+      "status": 400,
+      "duration": 0.03793001174926758,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 108,
+      "status": 201,
+      "duration": 0.06307673454284668,
+      "success": true,
+      "data": {
+        "checkin_id": 72,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "XQBH3B",
+        "success": true,
+        "visitor_id": 72
+      },
+      "error": null
+    },
+    {
+      "index": 115,
+      "status": 400,
+      "duration": 0.04120993614196777,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 106,
+      "status": 201,
+      "duration": 0.06767892837524414,
+      "success": true,
+      "data": {
+        "checkin_id": 73,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "N4YSI1",
+        "success": true,
+        "visitor_id": 73
+      },
+      "error": null
+    },
+    {
+      "index": 116,
+      "status": 400,
+      "duration": 0.04138326644897461,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 111,
+      "status": 201,
+      "duration": 0.06296205520629883,
+      "success": true,
+      "data": {
+        "checkin_id": 74,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "FKNH11",
+        "success": true,
+        "visitor_id": 74
+      },
+      "error": null
+    },
+    {
+      "index": 118,
+      "status": 400,
+      "duration": 0.037001848220825195,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 117,
+      "status": 400,
+      "duration": 0.03980708122253418,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 113,
+      "status": 201,
+      "duration": 0.05619096755981445,
+      "success": true,
+      "data": {
+        "checkin_id": 75,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "FDGVGQ",
+        "success": true,
+        "visitor_id": 76
+      },
+      "error": null
+    },
+    {
+      "index": 112,
+      "status": 201,
+      "duration": 0.061128854751586914,
+      "success": true,
+      "data": {
+        "checkin_id": 76,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "BVHLD5",
+        "success": true,
+        "visitor_id": 75
+      },
+      "error": null
+    },
+    {
+      "index": 119,
+      "status": 201,
+      "duration": 0.05093502998352051,
+      "success": true,
+      "data": {
+        "checkin_id": 77,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "ECCXOW",
+        "success": true,
+        "visitor_id": 77
+      },
+      "error": null
+    },
+    {
+      "index": 122,
+      "status": 400,
+      "duration": 0.04586601257324219,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 121,
+      "status": 201,
+      "duration": 0.05051708221435547,
+      "success": true,
+      "data": {
+        "checkin_id": 78,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "4D4GYM",
+        "success": true,
+        "visitor_id": 78
+      },
+      "error": null
+    },
+    {
+      "index": 125,
+      "status": 400,
+      "duration": 0.047333717346191406,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 120,
+      "status": 201,
+      "duration": 0.06007099151611328,
+      "success": true,
+      "data": {
+        "checkin_id": 79,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "D1PXWK",
+        "success": true,
+        "visitor_id": 79
+      },
+      "error": null
+    },
+    {
+      "index": 124,
+      "status": 400,
+      "duration": 0.054327964782714844,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 126,
+      "status": 400,
+      "duration": 0.05248308181762695,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 127,
+      "status": 400,
+      "duration": 0.05292487144470215,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 129,
+      "status": 400,
+      "duration": 0.04705095291137695,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 128,
+      "status": 400,
+      "duration": 0.05246090888977051,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 123,
+      "status": 201,
+      "duration": 0.062435150146484375,
+      "success": true,
+      "data": {
+        "checkin_id": 80,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "5L5M8S",
+        "success": true,
+        "visitor_id": 80
+      },
+      "error": null
+    },
+    {
+      "index": 130,
+      "status": 400,
+      "duration": 0.047799110412597656,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 133,
+      "status": 400,
+      "duration": 0.04935193061828613,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 135,
+      "status": 400,
+      "duration": 0.047440290451049805,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 134,
+      "status": 400,
+      "duration": 0.05011796951293945,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 136,
+      "status": 400,
+      "duration": 0.050435781478881836,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 131,
+      "status": 201,
+      "duration": 0.06330704689025879,
+      "success": true,
+      "data": {
+        "checkin_id": 81,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "P91REU",
+        "success": true,
+        "visitor_id": 81
+      },
+      "error": null
+    },
+    {
+      "index": 132,
+      "status": 201,
+      "duration": 0.06283020973205566,
+      "success": true,
+      "data": {
+        "checkin_id": 82,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "BBOFG8",
+        "success": true,
+        "visitor_id": 82
+      },
+      "error": null
+    },
+    {
+      "index": 137,
+      "status": 400,
+      "duration": 0.053019046783447266,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 139,
+      "status": 400,
+      "duration": 0.049158334732055664,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 140,
+      "status": 400,
+      "duration": 0.04962158203125,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 141,
+      "status": 400,
+      "duration": 0.04748201370239258,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 138,
+      "status": 400,
+      "duration": 0.06065678596496582,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 142,
+      "status": 400,
+      "duration": 0.0456693172454834,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 145,
+      "status": 400,
+      "duration": 0.04059791564941406,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 143,
+      "status": 400,
+      "duration": 0.043650150299072266,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 144,
+      "status": 400,
+      "duration": 0.045301198959350586,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 147,
+      "status": 400,
+      "duration": 0.04205608367919922,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 148,
+      "status": 400,
+      "duration": 0.04345893859863281,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 149,
+      "status": 400,
+      "duration": 0.04342293739318848,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 151,
+      "status": 400,
+      "duration": 0.0357518196105957,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 150,
+      "status": 400,
+      "duration": 0.04614090919494629,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 152,
+      "status": 400,
+      "duration": 0.03677701950073242,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 154,
+      "status": 400,
+      "duration": 0.039093017578125,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 146,
+      "status": 201,
+      "duration": 0.060784101486206055,
+      "success": true,
+      "data": {
+        "checkin_id": 83,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "H7J850",
+        "success": true,
+        "visitor_id": 83
+      },
+      "error": null
+    },
+    {
+      "index": 157,
+      "status": 400,
+      "duration": 0.04077506065368652,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 159,
+      "status": 400,
+      "duration": 0.03577709197998047,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 158,
+      "status": 400,
+      "duration": 0.037132978439331055,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 155,
+      "status": 400,
+      "duration": 0.045825958251953125,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 153,
+      "status": 201,
+      "duration": 0.058332204818725586,
+      "success": true,
+      "data": {
+        "checkin_id": 84,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "J19ULG",
+        "success": true,
+        "visitor_id": 84
+      },
+      "error": null
+    },
+    {
+      "index": 156,
+      "status": 201,
+      "duration": 0.05388617515563965,
+      "success": true,
+      "data": {
+        "checkin_id": 85,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "TCYS0A",
+        "success": true,
+        "visitor_id": 85
+      },
+      "error": null
+    },
+    {
+      "index": 161,
+      "status": 400,
+      "duration": 0.043435096740722656,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 160,
+      "status": 400,
+      "duration": 0.04494595527648926,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 162,
+      "status": 400,
+      "duration": 0.04383277893066406,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 163,
+      "status": 400,
+      "duration": 0.04433608055114746,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 164,
+      "status": 400,
+      "duration": 0.045854806900024414,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 165,
+      "status": 400,
+      "duration": 0.0424959659576416,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 166,
+      "status": 400,
+      "duration": 0.042385101318359375,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 167,
+      "status": 400,
+      "duration": 0.04216122627258301,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 168,
+      "status": 400,
+      "duration": 0.04688596725463867,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 169,
+      "status": 400,
+      "duration": 0.0459592342376709,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 170,
+      "status": 400,
+      "duration": 0.04792213439941406,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 174,
+      "status": 400,
+      "duration": 0.037671804428100586,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 172,
+      "status": 201,
+      "duration": 0.046929121017456055,
+      "success": true,
+      "data": {
+        "checkin_id": 86,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "T3L1YM",
+        "success": true,
+        "visitor_id": 86
+      },
+      "error": null
+    },
+    {
+      "index": 177,
+      "status": 400,
+      "duration": 0.03859901428222656,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 175,
+      "status": 400,
+      "duration": 0.04448890686035156,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 176,
+      "status": 400,
+      "duration": 0.046681880950927734,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 179,
+      "status": 400,
+      "duration": 0.03815102577209473,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 178,
+      "status": 400,
+      "duration": 0.041619062423706055,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 171,
+      "status": 201,
+      "duration": 0.06487607955932617,
+      "success": true,
+      "data": {
+        "checkin_id": 87,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "MG2Z7J",
+        "success": true,
+        "visitor_id": 87
+      },
+      "error": null
+    },
+    {
+      "index": 173,
+      "status": 201,
+      "duration": 0.055844783782958984,
+      "success": true,
+      "data": {
+        "checkin_id": 88,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "D8226Z",
+        "success": true,
+        "visitor_id": 88
+      },
+      "error": null
+    },
+    {
+      "index": 181,
+      "status": 400,
+      "duration": 0.04051017761230469,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 182,
+      "status": 400,
+      "duration": 0.04231619834899902,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 180,
+      "status": 400,
+      "duration": 0.04651761054992676,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 183,
+      "status": 400,
+      "duration": 0.04296994209289551,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 184,
+      "status": 400,
+      "duration": 0.04210782051086426,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 185,
+      "status": 400,
+      "duration": 0.042710065841674805,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 186,
+      "status": 400,
+      "duration": 0.04069781303405762,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 187,
+      "status": 400,
+      "duration": 0.040479183197021484,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 188,
+      "status": 400,
+      "duration": 0.03748798370361328,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 190,
+      "status": 400,
+      "duration": 0.03390812873840332,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 189,
+      "status": 400,
+      "duration": 0.040731191635131836,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 191,
+      "status": 400,
+      "duration": 0.03155183792114258,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 192,
+      "status": 400,
+      "duration": 0.03263688087463379,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 194,
+      "status": 400,
+      "duration": 0.027532100677490234,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 197,
+      "status": 400,
+      "duration": 0.030941009521484375,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 199,
+      "status": 400,
+      "duration": 0.03028106689453125,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 193,
+      "status": 201,
+      "duration": 0.041948795318603516,
+      "success": true,
+      "data": {
+        "checkin_id": 89,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "KQ743M",
+        "success": true,
+        "visitor_id": 89
+      },
+      "error": null
+    },
+    {
+      "index": 198,
+      "status": 400,
+      "duration": 0.032772064208984375,
+      "success": false,
+      "data": null,
+      "error": {
+        "error": "El visitante ya est\u00e1 registrado para este evento"
+      }
+    },
+    {
+      "index": 195,
+      "status": 201,
+      "duration": 0.037033796310424805,
+      "success": true,
+      "data": {
+        "checkin_id": 90,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "YZ6XL0",
+        "success": true,
+        "visitor_id": 90
+      },
+      "error": null
+    },
+    {
+      "index": 196,
+      "status": 201,
+      "duration": 0.037187814712524414,
+      "success": true,
+      "data": {
+        "checkin_id": 91,
+        "message": "Visitante registrado exitosamente",
+        "registration_code": "28I0VW",
+        "success": true,
+        "visitor_id": 91
+      },
+      "error": null
+    }
+  ]
+}

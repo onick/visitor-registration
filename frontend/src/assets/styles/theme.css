@@ -1,0 +1,389 @@
+/* Importar variables de colores */
+@import './colors.css';
+
+/* Aplicar los colores del CCB globalmente */
+:root {
+  --primary-color: var(--color-primary);
+  --secondary-color: var(--color-secondary);
+  --dark-color: var(--color-dark);
+  --success-color: var(--color-success);
+  --warning-color: var(--color-warning);
+  --danger-color: var(--color-danger);
+  --info-color: var(--color-info);
+}
+
+/* Sobreescribir colores por defecto de elementos */
+button.btn-primary,
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+button.btn-primary:hover,
+.btn-primary:hover {
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+}
+
+button.btn-secondary,
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+}
+
+button.btn-secondary:hover,
+.btn-secondary:hover {
+  background-color: var(--color-secondary-dark) !important;
+  border-color: var(--color-secondary-dark) !important;
+}
+
+/* Iconos y elementos destacados */
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.text-secondary {
+  color: var(--color-secondary) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Badges y etiquetas */
+.badge-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.badge-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+/* Links */
+a {
+  color: var(--color-secondary);
+}
+
+a:hover {
+  color: var(--color-secondary-dark);
+}
+
+/* Formularios */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-secondary);
+  outline-color: var(--color-secondary);
+}
+
+/* Tarjetas de eventos y estadísticas */
+.event-card:hover {
+  border-color: var(--color-primary);
+}
+
+.stat-icon.primary {
+  background-color: rgba(249, 157, 42, 0.1);
+  color: var(--color-primary);
+}
+
+.stat-icon.secondary {
+  background-color: rgba(0, 189, 242, 0.1);
+  color: var(--color-secondary);
+}
+
+/* Gráficos - Chart.js */
+.chart-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary-dark);
+}
+
+.chart-secondary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary-dark);
+}
+
+/* Loader/Spinner */
+.spinner,
+.loading-spinner {
+  border-color: var(--color-background-light);
+  border-top-color: var(--color-primary);
+}
+
+/* Navegación y menú */
+.nav-link.active,
+.menu-item.active {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.nav-link:hover,
+.menu-item:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Tablas */
+table th {
+  background-color: var(--color-background-light);
+  color: var(--color-dark);
+}
+
+table tbody tr:hover {
+  background-color: rgba(249, 157, 42, 0.05);
+}
+
+/* Modales */
+.modal-header {
+  border-bottom-color: var(--border-color);
+}
+
+.modal-footer {
+  border-top-color: var(--border-color);
+}
+
+/* Alertas y notificaciones */
+.alert-primary {
+  background-color: rgba(249, 157, 42, 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.alert-secondary {
+  background-color: rgba(0, 189, 242, 0.1);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary-dark);
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--color-dark);
+}
+
+.sidebar-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sidebar-link.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Pagination */
+.pagination-item.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pagination-item:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Progress bars */
+.progress-bar {
+  background-color: var(--color-primary);
+}
+
+.progress-bar.secondary {
+  background-color: var(--color-secondary);
+}
+
+/* Tooltips */
+.tooltip {
+  background-color: var(--color-dark);
+}
+
+.tooltip-arrow {
+  border-color: var(--color-dark);
+}
+
+/* Cards de dashboard */
+.dashboard-card {
+  border-left: 4px solid transparent;
+}
+
+.dashboard-card.primary {
+  border-left-color: var(--color-primary);
+}
+
+.dashboard-card.secondary {
+  border-left-color: var(--color-secondary);
+}
+
+/* Dropdowns */
+.dropdown-item:hover {
+  background-color: var(--color-background-light);
+  color: var(--color-primary);
+}
+
+/* Switches/Toggle */
+.switch input:checked + .slider {
+  background-color: var(--color-primary);
+}
+
+/* Tags */
+.tag {
+  background-color: var(--color-background-light);
+  color: var(--color-dark);
+}
+
+.tag.primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.tag.secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+/* Breadcrumbs */
+.breadcrumb-item.active {
+  color: var(--color-primary);
+}
+
+.breadcrumb-item a {
+  color: var(--color-secondary);
+}
+
+/* File upload */
+.file-upload-area {
+  border: 2px dashed var(--color-secondary);
+}
+
+.file-upload-area:hover {
+  border-color: var(--color-primary);
+  background-color: rgba(249, 157, 42, 0.05);
+}
+
+/* Calendar */
+.calendar-day.selected {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.calendar-day.today {
+  border: 2px solid var(--color-secondary);
+}
+
+/* Timeline */
+.timeline-item::before {
+  background-color: var(--color-primary);
+}
+
+.timeline-dot {
+  background-color: var(--color-secondary);
+  border: 3px solid white;
+}
+
+/* Tabs */
+.tab-item.active {
+  border-bottom: 3px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tab-item:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Stepper */
+.stepper-step.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.stepper-step.completed {
+  background-color: var(--color-success);
+  color: white;
+}
+
+/* Avatars */
+.avatar {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+/* Chips */
+.chip {
+  background-color: var(--color-background-light);
+  color: var(--color-dark);
+}
+
+.chip.primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Dividers */
+hr {
+  border-color: var(--border-color);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark-lighter);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-dark);
+}
+
+/* Focus outline */
+:focus {
+  outline-color: var(--color-secondary);
+}
+
+/* Animations */
+@keyframes pulse-primary {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 157, 42, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(249, 157, 42, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 157, 42, 0);
+  }
+}
+
+@keyframes pulse-secondary {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 189, 242, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 189, 242, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 189, 242, 0);
+  }
+}
+
+.pulse-primary {
+  animation: pulse-primary 2s infinite;
+}
+
+.pulse-secondary {
+  animation: pulse-secondary 2s infinite;
+}

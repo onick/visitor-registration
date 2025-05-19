@@ -20,7 +20,8 @@ DB_PASSWORD = os.environ.get('DB_PASSWORD', 'postgres')
 if ENV == 'development' and not TESTING:
     # En desarrollo, usar SQLite por defecto si no se especifica otra cosa
     if os.environ.get('USE_SQLITE', 'true').lower() == 'true':
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:///dev.db')
+        db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'app.db')
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', f'sqlite:///{db_path}')
     else:
         SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 elif TESTING:

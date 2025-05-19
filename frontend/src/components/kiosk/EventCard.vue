@@ -1,170 +1,155 @@
 <template>
   <div class="event-card" @click="$emit('select')">
-    <div class="event-image-container">
-      <img 
-        :src="event.image_url || defaultImage" 
-        :alt="event.title"
-        class="event-image"
-      />
-      <div v-if="isActive" class="event-active-badge">
-        {{ translations.now }}
-      </div>
+    <div class="event-date">
+      <span class="day">{{ formatDay(event.startDate) }}</span>
+      <span class="month">{{ formatMonth(event.startDate) }}</span>
     </div>
-    <div class="event-info">
-      <h3 class="event-title">{{ event.title }}</h3>
+    <div class="event-details">
+      <h3>{{ event.title }}</h3>
       <p class="event-location">
-        <span class="location-icon">📍</span> {{ event.location }}
+        <i class="fas fa-map-marker-alt"></i> {{ event.location }}
       </p>
       <p class="event-time">
-        <span class="time-icon">🕒</span> {{ formattedTime }}
+        <i class="fas fa-clock"></i> {{ formatTime(event.startDate) }} - {{ formatTime(event.endDate) }}
       </p>
+      <div class="event-status" :class="getEventStatusClass">
+        {{ getEventStatusText }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
-
 export default {
   name: 'EventCard',
   props: {
     event: {
       type: Object,
       required: true
-    },
-    language: {
-      type: String,
-      default: 'es'
     }
   },
-  
-  setup(props) {
-    // Ruta relativa para imagen por defecto
-    const defaultImage = '/images/event-placeholder.jpg'
-    
-    const translations = computed(() => {
-      if (props.language === 'en') {
-        return {
-          now: 'Happening Now'
-        }
+  computed: {
+    getEventStatusClass() {
+      const now = new Date();
+      const startDate = new Date(this.event.startDate);
+      const endDate = new Date(this.event.endDate);
+      
+      if (now >= startDate && now <= endDate) {
+        return 'status-ongoing';
+      } else if (now < startDate) {
+        return 'status-upcoming';
       } else {
-        return {
-          now: 'En Curso'
-        }
+        return 'status-past';
       }
-    })
-    
-    const formattedTime = computed(() => {
-      const start = new Date(props.event.start_date)
-      const end = new Date(props.event.end_date)
+    },
+    getEventStatusText() {
+      const now = new Date();
+      const startDate = new Date(this.event.startDate);
+      const endDate = new Date(this.event.endDate);
       
-      // Opciones para el formato de tiempo
-      const options = { hour: '2-digit', minute: '2-digit' }
-      
-      // Formatear hora de inicio
-      return start.toLocaleTimeString(props.language === 'en' ? 'en-US' : 'es-ES', options)
-    })
-    
-    const isActive = computed(() => {
-      const now = new Date()
-      const start = new Date(props.event.start_date)
-      const end = new Date(props.event.end_date)
-      
-      return start <= now && end >= now
-    })
-    
-    return {
-      defaultImage,
-      translations,
-      formattedTime,
-      isActive
+      if (now >= startDate && now <= endDate) {
+        return 'En curso';
+      } else if (now < startDate) {
+        return 'Próximamente';
+      } else {
+        return 'Finalizado';
+      }
     }
   },
-  
-  emits: ['select']
-}
+  methods: {
+    formatDay(dateString) {
+      const date = new Date(dateString);
+      return date.getDate();
+    },
+    formatMonth(dateString) {
+      const date = new Date(dateString);
+      const months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+      return months[date.getMonth()];
+    },
+    formatTime(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+};
 </script>
 
 <style scoped>
 .event-card {
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  height: 100%;
   display: flex;
-  flex-direction: column;
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .event-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.event-image-container {
-  position: relative;
-  height: 160px;
-  overflow: hidden;
-}
-
-.event-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-
-.event-card:hover .event-image {
-  transform: scale(1.05);
-}
-
-.event-active-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #ff6b6b;
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 1rem;
+  min-width: 80px;
+}
+
+.day {
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
-.event-info {
-  padding: 15px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.month {
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
-.event-title {
+.event-details {
+  padding: 1rem;
+  flex: 1;
+}
+
+.event-details h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
-  margin: 0 0 10px 0;
-  color: var(--primary-color, #006bb3);
-  line-height: 1.3;
+  color: #333;
 }
 
 .event-location, .event-time {
-  margin: 5px 0;
+  margin: 0.25rem 0;
   font-size: 0.9rem;
-  display: flex;
-  align-items: center;
+  color: #6c757d;
 }
 
-.event-location {
-  color: #666;
-}
-
-.event-time {
-  color: #333;
+.event-status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
   font-weight: bold;
-  margin-top: auto;
+  margin-top: 0.5rem;
 }
 
-.location-icon, .time-icon {
-  margin-right: 5px;
-  font-size: 1rem;
+.status-ongoing {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-upcoming {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.status-past {
+  background-color: #6c757d;
+  color: white;
 }
 </style>

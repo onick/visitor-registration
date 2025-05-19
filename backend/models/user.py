@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from .database import db
 import secrets
+from flask import current_app
 
 class User(db.Model):
     """
@@ -58,15 +59,14 @@ class User(db.Model):
         """
         Incrementa el contador de intentos de inicio de sesión y bloquea la cuenta si es necesario
         """
-        self.login_attempts += 1
+        self.login_attempts = (self.login_attempts or 0) + 1
         
-        # Bloquear la cuenta después de 5 intentos fallidos
-        if self.login_attempts >= 5:
-            # Bloquear por 15 minutos
-            self.locked_until = datetime.utcnow() + timedelta(minutes=15)
+        max_attempts = current_app.config.get('MAX_LOGIN_ATTEMPTS', 5)
+        lockout_duration = current_app.config.get('ACCOUNT_LOCKOUT_MINUTES', 15)
+
+        if self.login_attempts >= max_attempts:
+            self.locked_until = datetime.utcnow() + timedelta(minutes=lockout_duration)
         
-        db.session.commit()
-    
     def reset_login_attempts(self):
         """
         Reinicia el contador de intentos de inicio de sesión
@@ -121,8 +121,10 @@ class User(db.Model):
         """
         return {
             'id': self.id,
+            'username': self.username,
             'email': self.email,
-            'name': f'{self.first_name} {self.last_name}',
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'role': self.role,
             'is_active': self.is_active,
             'last_login': self.last_login.isoformat() if self.last_login else None,

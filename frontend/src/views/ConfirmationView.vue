@@ -1,187 +1,360 @@
 <template>
-  <div class="kiosk-container">
-    <div class="kiosk-header">
-      <h1 class="kiosk-title">{{ translations.title }}</h1>
-    </div>
-    
-    <div class="kiosk-content">
-      <div class="confirmation-container">
-        <div class="confirmation-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        </div>
-        
-        <h2 class="confirmation-message">{{ translations.successMessage }}</h2>
-        
-        <div class="event-details" v-if="selectedEvent">
-          <p class="event-title">{{ selectedEvent.title }}</p>
-          <p class="event-location">{{ selectedEvent.location }}</p>
-          <p class="event-time">{{ formatEventTime(selectedEvent) }}</p>
-        </div>
-        
-        <p class="confirmation-instruction">{{ translations.instruction }}</p>
-        
-        <div class="countdown">{{ countdown }}</div>
+  <div class="confirmation-view">
+    <div class="confirmation-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
       </div>
-    </div>
-    
-    <div class="kiosk-footer">
-      <button @click="goHome" class="kiosk-button">
-        {{ translations.done }}
-      </button>
+      
+      <h1>¡Registro Completado!</h1>
+      <p class="confirmation-message">
+        Gracias por registrarse para el evento. Su información ha sido guardada correctamente.
+      </p>
+      
+      <div class="visitor-info">
+        <h2>Información del Registro</h2>
+        <div class="info-row">
+          <span class="info-label">Nombre:</span>
+          <span class="info-value">{{ visitorName }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Evento:</span>
+          <span class="info-value">{{ eventName }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Código de Registro:</span>
+          <span class="info-value confirmation-code">{{ registrationCode || confirmationCode }}</span>
+        </div>
+      </div>
+      
+      <div v-if="qrCode" class="qr-section">
+        <h2>Código QR</h2>
+        <p>Muestre este código al llegar al evento para un check-in más rápido.</p>
+        <div class="qr-container" ref="qrContainer"></div>
+      </div>
+      
+      <div v-if="loading" class="loading-message">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Cargando información del evento...</p>
+      </div>
+      
+      <div class="confirmation-actions">
+        <button class="btn-primary" @click="returnToHome">
+          Volver al Inicio
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import QRCode from 'qrcode';
 
 export default {
   name: 'ConfirmationView',
-  
-  setup() {
-    const store = useStore()
-    const router = useRouter()
+  data() {
+    return {
+      visitorName: '',
+      eventName: '',
+      eventId: null,
+      confirmationCode: '',
+      registrationCode: '',
+      qrCode: null,
+      loading: false
+    };
+  },
+  created() {
+    // Obtener datos de múltiples fuentes posibles
+    this.extractDataFromRoute();
     
-    const selectedEvent = computed(() => store.state.selectedEvent)
-    const language = computed(() => store.getters.kioskLanguage)
-    const countdown = ref(10)
-    const timer = ref(null)
-    
-    const translations = computed(() => {
-      if (language.value === 'en') {
-        return {
-          title: 'Registration Complete',
-          successMessage: 'Thank you for registering!',
-          instruction: 'You will be redirected to the home screen in',
-          done: 'Return to Home',
-          seconds: 'seconds'
-        }
-      } else {
-        return {
-          title: 'Registro Completado',
-          successMessage: '¡Gracias por registrarse!',
-          instruction: 'Será redirigido a la pantalla de inicio en',
-          done: 'Volver al Inicio',
-          seconds: 'segundos'
+    // Generar código de confirmación
+    this.generateConfirmationCode();
+  },
+  mounted() {
+    // Generar QR cuando el componente esté montado
+    this.$nextTick(() => {
+      this.generateQR();
+    });
+  },
+  methods: {
+    extractDataFromRoute() {
+      // 1. Intentar obtener de params
+      if (this.$route.params.visitorName) {
+        this.visitorName = this.$route.params.visitorName;
+      }
+      
+      if (this.$route.params.eventId) {
+        this.eventId = this.$route.params.eventId;
+      }
+      
+      if (this.$route.params.registrationCode) {
+        this.registrationCode = this.$route.params.registrationCode;
+      }
+      
+      // 2. Si no hay datos en params, intentar con query
+      if (!this.visitorName && this.$route.query.visitorName) {
+        this.visitorName = this.$route.query.visitorName;
+      }
+      
+      if (!this.eventId && this.$route.query.eventId) {
+        this.eventId = this.$route.query.eventId;
+      }
+      
+      if (!this.registrationCode && this.$route.query.registrationCode) {
+        this.registrationCode = this.$route.query.registrationCode;
+      }
+      
+      // 3. Si no hay datos, intentar obtener del state/localStorage
+      if (!this.visitorName || !this.eventId || !this.registrationCode) {
+        const registrationData = localStorage.getItem('lastRegistration');
+        if (registrationData) {
+          try {
+            const data = JSON.parse(registrationData);
+            if (!this.visitorName) this.visitorName = data.visitorName;
+            if (!this.eventId) this.eventId = data.eventId;
+            if (!this.registrationCode) this.registrationCode = data.registrationCode;
+          } catch (e) {
+            console.error('Error parsing registration data:', e);
+          }
         }
       }
-    })
-    
-    const formatEventTime = (event) => {
-      const start = new Date(event.start_date)
-      const end = new Date(event.end_date)
       
-      // Formato de fecha
-      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-      const timeOptions = { hour: '2-digit', minute: '2-digit' }
-      
-      const dateStr = start.toLocaleDateString(language.value === 'en' ? 'en-US' : 'es-ES', dateOptions)
-      const startTimeStr = start.toLocaleTimeString(language.value === 'en' ? 'en-US' : 'es-ES', timeOptions)
-      const endTimeStr = end.toLocaleTimeString(language.value === 'en' ? 'en-US' : 'es-ES', timeOptions)
-      
-      return `${dateStr}, ${startTimeStr} - ${endTimeStr}`
-    }
+      // 4. Cargar detalles del evento si tenemos eventId
+      if (this.eventId) {
+        this.loadEventDetails();
+      }
+    },
     
-    const goHome = () => {
-      clearInterval(timer.value)
-      store.dispatch('reset')
-      router.push('/')
-    }
-    
-    onMounted(() => {
-      // Iniciar cuenta regresiva
-      timer.value = setInterval(() => {
-        countdown.value--
+    async loadEventDetails() {
+      if (!this.eventId) return;
+      
+      this.loading = true;
+      try {
+        // Intentar obtener detalles del evento desde el store
+        let event = await this.$store.dispatch('events/fetchEventById', this.eventId);
         
-        if (countdown.value <= 0) {
-          clearInterval(timer.value)
-          goHome()
+        if (!event) {
+          // Si no está en el store, intentar obtener de los eventos cargados
+          const allEvents = this.$store.getters['events/allEvents'];
+          event = allEvents.find(e => e.id == this.eventId);
         }
-      }, 1000)
-    })
+        
+        if (event) {
+          this.eventName = event.title || event.name;
+        } else {
+          // Fallback por si no encontramos el evento
+          this.eventName = 'Evento del Centro Cultural';
+        }
+      } catch (error) {
+        console.error('Error al cargar detalles del evento:', error);
+        this.eventName = 'Evento CCB';
+      } finally {
+        this.loading = false;
+      }
+    },
     
-    onBeforeUnmount(() => {
-      clearInterval(timer.value)
-    })
+    generateConfirmationCode() {
+      // Generar un código alfanumérico aleatorio
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < 8; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      this.confirmationCode = code;
+    },
     
-    return {
-      selectedEvent,
-      translations,
-      countdown,
-      formatEventTime,
-      goHome
+    generateQR() {
+      // Verificar si la referencia al contenedor existe
+      if (!this.$refs.qrContainer) {
+        console.warn('Contenedor QR no encontrado');
+        this.qrCode = false;
+        return;
+      }
+      
+      try {
+        const data = JSON.stringify({
+          registrationCode: this.registrationCode || this.confirmationCode,
+          eventId: this.eventId,
+          visitorName: this.visitorName
+        });
+        
+        // Envolver en try-catch y usar async/await para mejor manejo de errores
+        QRCode.toCanvas(this.$refs.qrContainer, data, {
+          width: 200,
+          margin: 2,
+          color: {
+            dark: '#474C55',
+            light: '#ffffff'
+          }
+        }).then(() => {
+          this.qrCode = true;
+        }).catch(err => {
+          console.error('Error al generar QR:', err);
+          this.qrCode = false;
+        });
+      } catch (err) {
+        console.error('Error al intentar generar QR:', err);
+        this.qrCode = false;
+      }
+    },
+    
+    returnToHome() {
+      // Limpiar datos temporales
+      localStorage.removeItem('lastRegistration');
+      this.$router.push('/kiosk/idle');
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.confirmation-container {
+.confirmation-view {
+  min-height: 100vh;
+  background-color: #f5f5f5;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  background-color: var(--white);
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.confirmation-content {
   max-width: 600px;
   width: 100%;
-}
-
-.confirmation-icon {
-  color: var(--success-color);
-  margin-bottom: 20px;
-}
-
-.confirmation-message {
-  font-size: 2rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-.event-details {
-  margin: 20px 0;
-  padding: 15px;
-  background-color: var(--light-gray);
-  border-radius: 8px;
-  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
   text-align: center;
 }
 
-.event-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.event-location {
-  color: var(--dark-gray);
-  margin-bottom: 5px;
-}
-
-.event-time {
-  color: var(--primary-color);
-}
-
-.confirmation-instruction {
-  margin: 20px 0 10px;
-  color: var(--dark-gray);
-}
-
-.countdown {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--primary-color);
+.success-icon {
+  font-size: 5rem;
+  color: #43a047;
   margin-bottom: 20px;
 }
 
-.kiosk-footer {
+h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.confirmation-message {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.visitor-info {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.visitor-info h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-label {
+  font-weight: 500;
+  color: #666;
+  width: 100px;
+}
+
+.info-value {
+  flex: 1;
+  color: #333;
+}
+
+.confirmation-code {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+}
+
+.qr-section {
+  margin-bottom: 30px;
+}
+
+.qr-section h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.qr-section p {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.loading-message {
+  text-align: center;
+  color: #666;
+  margin: 20px 0;
+}
+
+.loading-message i {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.confirmation-actions {
   margin-top: 30px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+@media (max-width: 768px) {
+  .confirmation-content {
+    padding: 30px 20px;
+  }
+  
+  .success-icon {
+    font-size: 4rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .confirmation-message {
+    font-size: 1rem;
+  }
 }
 </style>

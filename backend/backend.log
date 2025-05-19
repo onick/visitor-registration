@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column events.type does not exist
+LINE 2: ...s_location, events.image_url AS events_image_url, events.typ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/app_production.py", line 621, in <module>
+    init_db()  # Inicializar base de datos
+    ^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/app_production.py", line 607, in init_db
+    if Event.query.count() == 0:
+       ^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 3147, in count
+    self._legacy_from_self(col).enable_eagerloads(False).scalar()
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2836, in scalar
+    ret = self.one()
+          ^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2809, in one
+    return self._iter().one()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2858, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/marcelinofranciscomartinez/Documents/Projects/ccb01/visitor-registration/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column events.type does not exist
+LINE 2: ...s_location, events.image_url AS events_image_url, events.typ...
+                                                             ^
+
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT events.id AS events_id, events.title AS events_title, events.description AS events_description, events.start_date AS events_start_date, events.end_date AS events_end_date, events.location AS events_location, events.image_url AS events_image_url, events.type AS events_type, events.is_active AS events_is_active, events.created_at AS events_created_at, events.updated_at AS events_updated_at 
+FROM events) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/f405)

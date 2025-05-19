@@ -1,0 +1,105 @@
+/* Estilos personalizados para vue-toastification con colores CCB */
+:root {
+  --vt-color-success: #198754;
+  --vt-color-info: #00BDF2;
+  --vt-color-warning: #F99D2A;
+  --vt-color-error: #dc3545;
+  --vt-color-default: #474C55;
+}
+
+/* Personalizar los toasts para que coincidan con el diseño CCB */
+.Vue-Toastification__toast {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.Vue-Toastification__toast--info {
+  background-color: var(--vt-color-info);
+  color: white;
+}
+
+.Vue-Toastification__toast--warning {
+  background-color: var(--vt-color-warning);
+  color: white;
+}
+
+.Vue-Toastification__toast--error {
+  background-color: var(--vt-color-error);
+  color: white;
+}
+
+.Vue-Toastification__toast--success {
+  background-color: var(--vt-color-success);
+  color: white;
+}
+
+.Vue-Toastification__toast--default {
+  background-color: var(--vt-color-default);
+  color: white;
+}
+
+/* Personalizar el botón de cerrar */
+.Vue-Toastification__close-button {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.Vue-Toastification__close-button:hover {
+  opacity: 1;
+}
+
+/* Personalizar la barra de progreso */
+.Vue-Toastification__progress-bar {
+  opacity: 0.3;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Personalizar iconos */
+.Vue-Toastification__icon {
+  margin-right: 0.75rem;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Ajustes para el contenedor */
+.Vue-Toastification__container {
+  padding: 0.5rem;
+}
+
+/* Animación personalizada de entrada */
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animación personalizada de salida */
+@keyframes toast-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.Vue-Toastification__toast--top-right {
+  animation: toast-slide-in 0.3s ease-out;
+}
+
+.Vue-Toastification__toast--top-right.Vue-Toastification__bounce-leave-active {
+  animation: toast-slide-out 0.3s ease-in;
+}

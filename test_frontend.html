@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Frontend</title>
+</head>
+<body>
+    <h1>Test de Comunicación Frontend-Backend</h1>
+    
+    <div id="results">
+        <h2>Resultados de las pruebas:</h2>
+        <div id="events-test"></div>
+        <div id="register-test"></div>
+        <div id="stats-test"></div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://127.0.0.1:8080/api/v1';
+        
+        async function testEndpoints() {
+            // Test eventos
+            try {
+                const eventsResponse = await fetch(`${API_URL}/events/`);
+                const events = await eventsResponse.json();
+                document.getElementById('events-test').innerHTML = 
+                    `<p>✅ Eventos: ${events.length} eventos encontrados</p>`;
+                
+                // Test registro
+                if (events.length > 0) {
+                    const registerResponse = await fetch(`${API_URL}/visitors/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: 'Test Usuario',
+                            email: 'test@test.com',
+                            phone: '809-000-0000',
+                            event_id: events[0].id,
+                            kiosk_id: 1
+                        })
+                    });
+                    const registerData = await registerResponse.json();
+                    document.getElementById('register-test').innerHTML = 
+                        `<p>✅ Registro: ${registerData.message || 'Error en registro'}</p>`;
+                }
+                
+                // Test estadísticas
+                const statsResponse = await fetch(`${API_URL}/visitors/statistics`);
+                const stats = await statsResponse.json();
+                document.getElementById('stats-test').innerHTML = 
+                    `<p>✅ Estadísticas: ${stats.total} visitantes totales</p>`;
+                    
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('results').innerHTML += 
+                    `<p>❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        testEndpoints();
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* Paleta de colores del Centro Cultural Banreservas */
+:root {
+  /* Colores principales */
+  --color-primary: #F99D2A;        /* Naranja/Dorado */
+  --color-secondary: #00BDF2;      /* Azul brillante */
+  --color-dark: #474C55;           /* Gris oscuro */
+  
+  /* Variaciones de los colores principales */
+  --color-primary-light: #FDB757;  /* Naranja claro */
+  --color-primary-dark: #E68A1A;   /* Naranja oscuro */
+  
+  --color-secondary-light: #33CDF5; /* Azul claro */
+  --color-secondary-dark: #0099CC;  /* Azul oscuro */
+  
+  --color-dark-light: #5A5F69;     /* Gris medio */
+  --color-dark-lighter: #7A7F88;   /* Gris claro */
+  
+  /* Colores de fondo y texto */
+  --color-background: #FFFFFF;
+  --color-background-light: #F8F9FA;
+  --color-text: #474C55;
+  --color-text-light: #7A7F88;
+  
+  /* Colores de estado */
+  --color-success: #28A745;
+  --color-warning: #F99D2A;        /* Usa el color principal */
+  --color-danger: #DC3545;
+  --color-info: #00BDF2;           /* Usa el color secundario */
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(71, 76, 85, 0.1);
+  --shadow-md: 0 4px 6px rgba(71, 76, 85, 0.1);
+  --shadow-lg: 0 10px 15px rgba(71, 76, 85, 0.1);
+  
+  /* Bordes */
+  --border-radius: 8px;
+  --border-color: #E9ECEF;
+}
+
+/* Clases de utilidad para los colores */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-dark { color: var(--color-dark); }
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-dark { background-color: var(--color-dark); }
+
+/* Botones con la nueva paleta */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.btn-dark {
+  background-color: var(--color-dark);
+  color: white;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: var(--color-dark-light);
+}

@@ -1,0 +1,333 @@
+<template>
+  <div class="dashboard">
+    <h1>Dashboard</h1>
+    <p>Panel de control del Centro Cultural Banreservas</p>
+    
+    <div class="dashboard-sections">
+      <!-- Sección de estadísticas -->
+      <div class="stats-section">
+        <h2>Estadísticas Generales</h2>
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-icon visitors-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Visitantes Totales</h3>
+              <p class="stat-value">{{ visitorStats.total }}</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon events-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Eventos Activos</h3>
+              <p class="stat-value">{{ eventStats.active }}</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon checkins-icon">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Check-ins Hoy</h3>
+              <p class="stat-value">{{ visitorStats.checkedIn }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sección de gráficos -->
+      <div class="charts-section">
+        <div class="chart-container">
+          <h2>Visitantes por Evento</h2>
+          <div id="visitorsChart" class="chart"></div>
+        </div>
+        
+        <div class="chart-container">
+          <h2>Eventos Próximos</h2>
+          <div class="upcoming-events">
+            <div v-if="upcomingEvents.length === 0" class="no-data">
+              No hay eventos próximos.
+            </div>
+            <div v-else class="event-list">
+              <div v-for="event in upcomingEvents" :key="event.id" class="event-item">
+                <div class="event-date">
+                  <span class="event-day">{{ formatDay(event.startDate) }}</span>
+                  <span class="event-month">{{ formatMonth(event.startDate) }}</span>
+                </div>
+                <div class="event-details">
+                  <h3>{{ event.name }}</h3>
+                  <p class="event-location">
+                    <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+                  </p>
+                  <p class="event-time">
+                    <i class="far fa-clock"></i> {{ formatTime(event.startDate) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+  name: 'Dashboard',
+  data() {
+    return {
+      visitorStats: {
+        total: 0,
+        checkedIn: 0,
+        today: 0
+      },
+      eventStats: {
+        total: 0,
+        active: 0,
+        upcoming: 0
+      }
+    };
+  },
+  computed: {
+    ...mapGetters({
+      events: 'events/allEvents',
+      upcomingEvents: 'events/upcomingEvents'
+    })
+  },
+  mounted() {
+    this.loadData();
+    this.createVisitorsChart();
+  },
+  methods: {
+    ...mapActions('events', ['fetchEvents']),
+    ...mapActions('visitors', ['fetchStatistics']),
+    
+    async loadData() {
+      try {
+        // Cargar eventos
+        await this.fetchEvents();
+        
+        // Cargar estadísticas de visitantes
+        const visitorStatsData = await this.fetchStatistics();
+        if (visitorStatsData) {
+          this.visitorStats = visitorStatsData;
+        }
+        
+        // Calcular estadísticas de eventos
+        this.eventStats = {
+          total: this.events.length,
+          active: this.events.filter(e => e.is_active).length,
+          upcoming: this.upcomingEvents.length
+        };
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    },
+    
+    formatDay(dateString) {
+      const date = new Date(dateString);
+      return date.getDate();
+    },
+    
+    formatMonth(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('es-ES', { month: 'short' });
+    },
+    
+    formatTime(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    },
+    
+    createVisitorsChart() {
+      try {
+        // Simulación de creación de gráfico
+        console.log('Gráfico de visitantes creado');
+      } catch (error) {
+        console.error('Error al crear el gráfico de visitantes:', error);
+      }
+    }
+  }
+};
+</script>
+
+<style scoped>
+.dashboard {
+  width: 100%;
+}
+
+.dashboard-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.stats-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.stats-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin-top: 20px;
+}
+
+.stat-card {
+  align-items: center;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  display: flex;
+  padding: 20px;
+}
+
+.stat-icon {
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  margin-right: 20px;
+  width: 60px;
+}
+
+.stat-icon i {
+  font-size: 24px;
+}
+
+.visitors-icon {
+  background-color: #3a86ff;
+}
+
+.events-icon {
+  background-color: #4cb782;
+}
+
+.checkins-icon {
+  background-color: #ff9e3d;
+}
+
+.stat-info h3 {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 5px 0;
+}
+
+.stat-value {
+  color: #333;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.charts-section {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.chart-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.chart-container h2 {
+  color: #333;
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.chart {
+  height: 300px;
+}
+
+.upcoming-events {
+  margin-top: 20px;
+}
+
+.no-data {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.event-item {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.event-date {
+  align-items: center;
+  background-color: #f5f7fa;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  justify-content: center;
+  margin-right: 15px;
+  width: 60px;
+}
+
+.event-day {
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-month {
+  color: #666;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.event-details {
+  flex: 1;
+}
+
+.event-details h3 {
+  color: #333;
+  font-size: 16px;
+  margin: 0 0 5px 0;
+}
+
+.event-location, .event-time {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+.event-location i, .event-time i {
+  margin-right: 5px;
+  width: 16px;
+}
+
+@media (max-width: 768px) {
+  .stats-cards, .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

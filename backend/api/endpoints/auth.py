@@ -2,7 +2,7 @@
 Endpoints para autenticación de usuarios
 """
 from flask_restx import Namespace, Resource, fields
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 from flask_jwt_extended import (
     create_access_token, create_refresh_token, 
     jwt_required, get_jwt_identity
@@ -57,6 +57,11 @@ change_password_model = auth_namespace.model('ChangePassword', {
     'new_password': fields.String(required=True, description='Nueva contraseña')
 })
 
+# Modelo de error genérico
+error_model = auth_namespace.model('Error', {
+    'error': fields.String(description='Descripción del error')
+})
+
 @auth_namespace.route('/login')
 class Login(Resource):
     """
@@ -64,7 +69,9 @@ class Login(Resource):
     """
     @auth_namespace.doc('login')
     @auth_namespace.expect(login_model)
-    @auth_namespace.marshal_with(token_model, code=200)
+    @auth_namespace.response(200, 'Inicio de sesión exitoso', token_model)
+    @auth_namespace.response(400, 'Entrada inválida', error_model)
+    @auth_namespace.response(401, 'No autorizado / Credenciales inválidas', error_model)
     def post(self):
         """
         Iniciar sesión con nombre de usuario y contraseña
@@ -73,64 +80,47 @@ class Login(Resource):
         username = data.get('username')
         password = data.get('password')
         
-        # Validar campos requeridos
         if not username or not password:
             return {'error': 'Nombre de usuario y contraseña son requeridos'}, 400
         
-        # Buscar usuario
         user = User.query.filter_by(username=username).first()
         
-        # Si el usuario no existe
         if not user:
             return {'error': 'Credenciales inválidas'}, 401
         
-        # Verificar si la cuenta está activa
         if not user.is_active:
             return {'error': 'Cuenta desactivada. Contacte al administrador'}, 401
         
-        # Verificar si la cuenta está bloqueada
         if user.is_account_locked():
             lock_time = user.locked_until - datetime.utcnow()
             minutes = int(lock_time.total_seconds() / 60)
-            return {'error': f'Cuenta bloqueada temporalmente. Intente nuevamente en {minutes} minutos'}, 401
+            minutes_display = max(1, minutes) 
+            return {'error': f'Cuenta bloqueada temporalmente. Intente nuevamente en {minutes_display} minutos'}, 401
         
-        # Verificar contraseña
         if not user.check_password(password):
-            # Incrementar contador de intentos fallidos
             user.increment_login_attempts()
+            db.session.add(user)
+            db.session.commit()
+            db.session.refresh(user)
             
-            # Si la cuenta se bloquea después de este intento
             if user.is_account_locked():
-                return {'error': 'Demasiados intentos fallidos. Cuenta bloqueada por 15 minutos'}, 401
+                lock_duration = current_app.config.get('ACCOUNT_LOCKOUT_MINUTES', 15)
+                return {'error': f'Demasiados intentos fallidos. Cuenta bloqueada por {lock_duration} minutos'}, 401
             
             return {'error': 'Credenciales inválidas'}, 401
         
-        # Inicio de sesión exitoso, resetear contador de intentos
         user.reset_login_attempts()
-        
-        # Actualizar tiempo de último inicio de sesión
         user.last_login = datetime.utcnow()
         db.session.commit()
         
-        # Generar tokens - asegurarse de que identity sea un string
         access_token = create_access_token(identity=str(user.id))
         refresh_token = create_refresh_token(identity=str(user.id))
-        
-        # Crear notificación de nuevo inicio de sesión
-        notification = Notification(
-            title='Nuevo inicio de sesión',
-            message=f'Has iniciado sesión el {datetime.utcnow().strftime("%Y-%m-%d %H:%M")}',
-            type='info',
-            for_user_id=user.id
-        )
-        db.session.add(notification)
-        db.session.commit()
         
         return {
             'access_token': access_token,
             'refresh_token': refresh_token,
             'user': user.to_dict()
-        }
+        }, 200
 
 @auth_namespace.route('/register')
 class Register(Resource):

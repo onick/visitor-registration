@@ -1,44 +1,31 @@
 <template>
   <header class="kiosk-header">
-    <div v-if="showBackButton" class="back-button-container">
-      <button @click="goBack" class="back-button">
-        <span class="back-icon">←</span> {{ translations.back }}
-      </button>
-    </div>
-    
     <div class="header-content">
-      <img 
-        :src="logo || defaultLogo" 
-        alt="Centro Cultural Banreservas" 
-        class="header-logo"
-      />
-      <div class="header-text">
-        <h1 class="header-title">{{ title }}</h1>
-        <h2 v-if="subtitle" class="header-subtitle">{{ subtitle }}</h2>
+      <div class="left-section">
+        <button 
+          v-if="showBackButton" 
+          class="back-button" 
+          @click="$emit('back')"
+          aria-label="Volver"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="logo" @click="goToHome">
+          <img src="@/assets/images/logo.png" alt="Centro Cultural Banreservas" class="logo-icon" />
+          <span class="logo-text">Centro Cultural Banreservas</span>
+        </div>
       </div>
-    </div>
-    
-    <div class="language-selector">
-      <button 
-        @click="changeLanguage('es')" 
-        :class="['language-button', language === 'es' ? 'active' : '']"
-      >
-        ES
-      </button>
-      <button 
-        @click="changeLanguage('en')" 
-        :class="['language-button', language === 'en' ? 'active' : '']"
-      >
-        EN
-      </button>
+      
+      <h1 class="page-title">{{ title }}</h1>
+      
+      <div class="right-section">
+        <div class="current-time">{{ currentTime }}</div>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
 export default {
   name: 'KioskHeader',
   props: {
@@ -46,167 +33,131 @@ export default {
       type: String,
       required: true
     },
-    subtitle: {
-      type: String,
-      default: ''
-    },
-    logo: {
-      type: String,
-      default: ''
-    },
     showBackButton: {
       type: Boolean,
       default: false
-    },
-    language: {
-      type: String,
-      default: 'es'
     }
   },
-  
-  setup(props, { emit }) {
-    const router = useRouter()
-    const defaultLogo = '/images/logo.png'
-    
-    const translations = computed(() => {
-      if (props.language === 'en') {
-        return {
-          back: 'Back'
-        }
-      } else {
-        return {
-          back: 'Regresar'
-        }
-      }
-    })
-    
-    const goBack = () => {
-      router.back()
-    }
-    
-    const changeLanguage = (lang) => {
-      emit('change-language', lang)
-    }
-    
+  data() {
     return {
-      defaultLogo,
-      translations,
-      goBack,
-      changeLanguage
-    }
+      currentTime: '',
+      timeInterval: null
+    };
   },
-  
-  emits: ['change-language']
-}
+  mounted() {
+    this.updateTime();
+    this.timeInterval = setInterval(this.updateTime, 1000);
+  },
+  beforeUnmount() {
+    clearInterval(this.timeInterval);
+  },
+  methods: {
+    updateTime() {
+      const now = new Date();
+      this.currentTime = now.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    },
+    goToHome() {
+      this.$router.push('/kiosk/welcome');
+    }
+  }
+};
 </script>
 
 <style scoped>
 .kiosk-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-.back-button-container {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-}
-
-.back-button {
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  color: var(--primary-color, #006bb3);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.back-button:hover {
-  color: var(--secondary-color, #00478f);
-}
-
-.back-icon {
-  font-size: 1.5rem;
-  margin-right: 5px;
+  background-color: #512da8;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  flex: 1;
-  justify-content: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.header-logo {
-  height: 60px;
-  margin-right: 15px;
-}
-
-.header-title {
-  font-size: 1.5rem;
-  margin: 0;
-  color: var(--primary-color, #006bb3);
-}
-
-.header-subtitle {
-  font-size: 1rem;
-  margin: 5px 0 0 0;
-  color: #666;
-  font-weight: normal;
-}
-
-.language-selector {
+.left-section {
   display: flex;
-  gap: 5px;
+  align-items: center;
 }
 
-.language-button {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.language-button.active {
-  background-color: var(--primary-color, #006bb3);
+.back-button {
+  background: none;
+  border: none;
   color: white;
-  border-color: var(--primary-color, #006bb3);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 1.5rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
 }
 
-@media (max-width: 600px) {
+.back-button:hover {
+  transform: translateX(-3px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  object-fit: contain;
+  background-color: white;
+  padding: 4px;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.right-section {
+  min-width: 80px;
+  text-align: right;
+}
+
+.current-time {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
   .kiosk-header {
-    flex-direction: column;
-    padding: 10px;
+    padding: 1rem;
   }
   
-  .header-content {
-    margin-bottom: 10px;
+  .logo-text {
+    display: none;
   }
   
-  .header-logo {
-    height: 40px;
-  }
-  
-  .header-title {
+  .page-title {
     font-size: 1.2rem;
-  }
-  
-  .back-button-container {
-    position: static;
-    transform: none;
-    margin-bottom: 10px;
   }
 }
 </style>

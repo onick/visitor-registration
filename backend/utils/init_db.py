@@ -24,7 +24,7 @@ def init_database():
     db.create_all()
     print("Base de datos inicializada - tablas creadas")
 
-def create_admin_user(email="admin@ccb.do", password="Admin123!", first_name="Administrador", last_name="Sistema"):
+def create_admin_user(email="mafrancisco@banreservas.com", password="Admin123!", first_name="Administrador", last_name="Sistema"):
     """
     Crear un usuario administrador si no existe
     """
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     # Configurar variables de entorno para desarrollo
     os.environ['FLASK_ENV'] = 'development'
     os.environ['USE_SQLITE'] = 'true'
-    os.environ['ADMIN_EMAIL'] = 'admin@ccb.do'
+    os.environ['ADMIN_EMAIL'] = 'mafrancisco@banreservas.com'
     os.environ['ADMIN_PASSWORD'] = 'Admin123!'
     
     app = create_app({
