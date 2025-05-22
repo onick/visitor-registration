@@ -13,19 +13,19 @@
     
     <div class="nav-links">
       <router-link to="/admin/dashboard" class="nav-link" v-if="isAdmin">
-        <i class="fas fa-tachometer-alt"></i> Dashboard
+        <img src="@/assets/icons/chart-line.svg" alt="Dashboard" class="nav-icon" /> Dashboard
       </router-link>
       <router-link to="/admin/events" class="nav-link" v-if="isAdmin">
-        <i class="fas fa-calendar-alt"></i> Eventos
+        <img src="@/assets/icons/calendar.svg" alt="Eventos" class="nav-icon" /> Eventos
       </router-link>
       <router-link to="/admin/visitors" class="nav-link" v-if="isAdmin">
-        <i class="fas fa-users"></i> Visitantes
+        <img src="@/assets/icons/users.svg" alt="Visitantes" class="nav-icon" /> Visitantes
       </router-link>
       <router-link to="/admin/kiosks" class="nav-link" v-if="isAdmin">
-        <i class="fas fa-tablet-alt"></i> Kioscos
+        <img src="@/assets/icons/tablet.svg" alt="Kioscos" class="nav-icon" /> Kioscos
       </router-link>
       <router-link to="/admin/users" class="nav-link" v-if="isAdmin && hasUserManagementAccess">
-        <i class="fas fa-user-cog"></i> Usuarios
+        <img src="@/assets/icons/user-cog.svg" alt="Usuarios" class="nav-icon" /> Usuarios
       </router-link>
     </div>
     
@@ -33,14 +33,14 @@
       <div class="user-info" @click="toggleUserMenu">
         <div class="user-avatar">{{ userInitials }}</div>
         <span class="user-name">{{ userName }}</span>
-        <i class="fas fa-chevron-down"></i>
+        <img src="@/assets/icons/chevron-down.svg" alt="Abrir menú" class="user-icon" />
       </div>
       <div class="user-menu" v-if="showUserMenu">
         <div class="menu-item" @click="goToProfile">
-          <i class="fas fa-user"></i> Perfil
+          <img src="@/assets/icons/user.svg" alt="Perfil" class="menu-icon" /> Perfil
         </div>
         <div class="menu-item" @click="logout">
-          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+          <img src="@/assets/icons/log-out.svg" alt="Cerrar sesión" class="menu-icon" /> Cerrar sesión
         </div>
       </div>
     </div>
@@ -212,6 +212,17 @@ export default {
   color: #3a86ff;
 }
 
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  filter: invert(20%) sepia(10%) saturate(2076%) hue-rotate(180deg) brightness(90%) contrast(95%);
+}
+
+.nav-link.router-link-active .nav-icon {
+  filter: invert(35%) sepia(98%) saturate(1946%) hue-rotate(188deg) brightness(97%) contrast(101%);
+}
+
 .user-section {
   border-top: 1px solid #eaeaea;
   padding: 15px 20px;
@@ -269,6 +280,20 @@ export default {
 
 .menu-item:hover {
   background-color: rgba(58, 134, 255, 0.1);
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  filter: invert(20%) sepia(10%) saturate(2076%) hue-rotate(180deg) brightness(90%) contrast(95%);
+}
+
+.user-icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  filter: invert(20%) sepia(10%) saturate(2076%) hue-rotate(180deg) brightness(90%) contrast(95%);
 }
 
 @media (max-width: 768px) {
