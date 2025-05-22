@@ -20,6 +20,7 @@ class User(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     role = db.Column(db.String(20), nullable=False)  # 'admin', 'staff'
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=True) # Nueva relación con tabla de roles
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime, nullable=True)
@@ -30,6 +31,9 @@ class User(db.Model):
     password_changed_at = db.Column(db.DateTime, default=datetime.utcnow)
     reset_token = db.Column(db.String(255), nullable=True)
     reset_token_expires = db.Column(db.DateTime, nullable=True)
+    
+    # Relaciones
+    role_obj = db.relationship('Role', backref=db.backref('users', lazy=True)) # Relación con Role
     
     def __repr__(self):
         return f'<User {self.username}>'
@@ -115,11 +119,61 @@ class User(db.Model):
         """
         return self.role == 'admin'
     
+    def has_permission(self, permission_name):
+        """
+        Verifica si el usuario tiene un permiso específico
+        
+        Args:
+            permission_name (str): Nombre del permiso a verificar
+            
+        Returns:
+            bool: True si tiene el permiso, False en caso contrario
+        """
+        # Los administradores tienen todos los permisos
+        if self.is_admin:
+            return True
+            
+        # Si el usuario tiene rol_obj, verificar permisos
+        if self.role_obj:
+            for permission in self.role_obj.permissions:
+                if permission.name == permission_name:
+                    return True
+        
+        return False
+    
+    def has_permissions(self, permission_names):
+        """
+        Verifica si el usuario tiene todos los permisos especificados
+        
+        Args:
+            permission_names (list): Lista de nombres de permisos a verificar
+            
+        Returns:
+            bool: True si tiene todos los permisos, False en caso contrario
+        """
+        # Los administradores tienen todos los permisos
+        if self.is_admin:
+            return True
+            
+        # Si no hay rol_obj, no tiene permisos
+        if not self.role_obj:
+            return False
+            
+        # Convertir los permisos a un conjunto para búsqueda rápida
+        user_permissions = {p.name for p in self.role_obj.permissions}
+        
+        # Verificar que todos los permisos requeridos estén en el conjunto
+        for permission in permission_names:
+            if permission not in user_permissions:
+                return False
+                
+        return True
+    
     def to_dict(self):
         """
         Convierte el usuario a un diccionario
         """
-        return {
+        user_dict = {
             'id': self.id,
             'username': self.username,
             'email': self.email,
@@ -129,4 +183,10 @@ class User(db.Model):
             'is_active': self.is_active,
             'last_login': self.last_login.isoformat() if self.last_login else None,
             'created_at': self.created_at.isoformat()
-        } 
+        }
+        
+        # Agregar permisos si hay role_obj
+        if self.role_obj:
+            user_dict['permissions'] = [p.name for p in self.role_obj.permissions]
+        
+        return user_dict 

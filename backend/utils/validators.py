@@ -5,27 +5,197 @@ import re
 from datetime import datetime, timedelta
 from flask import request, jsonify
 from functools import wraps
+import html
+import json
+from marshmallow import Schema, fields, ValidationError
+
+# Expresiones regulares para validaciones comunes
+REGEX_EMAIL = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+REGEX_USERNAME = r'^[a-zA-Z0-9_-]{3,20}$'
+REGEX_PASSWORD = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
+REGEX_PHONE = r'^\+?[0-9]{7,15}$'
+REGEX_NAME = r'^[a-zA-Z\s\-\'áéíóúÁÉÍÓÚüÜñÑ]{2,100}$'
+REGEX_REGISTRATION_CODE = r'^[A-Z0-9]{6}$'
 
 def validate_email(email):
     """
-    Validar formato de email
+    Valida un correo electrónico
+    
+    Args:
+        email (str): Correo electrónico a validar
+        
+    Returns:
+        bool: True si es válido, False en caso contrario
     """
-    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    return re.match(email_regex, email) is not None
+    if not email or not isinstance(email, str):
+        return False
+    return re.match(REGEX_EMAIL, email) is not None
+
+def validate_username(username):
+    """
+    Valida un nombre de usuario
+    
+    Args:
+        username (str): Nombre de usuario a validar
+        
+    Returns:
+        bool: True si es válido, False en caso contrario
+    """
+    if not username or not isinstance(username, str):
+        return False
+    return re.match(REGEX_USERNAME, username) is not None
 
 def validate_password(password):
     """
-    Validar complejidad de contraseña
+    Valida una contraseña
+    
+    Args:
+        password (str): Contraseña a validar
+        
+    Returns:
+        bool: True si es válida, False en caso contrario
     """
-    # Al menos 8 caracteres, una letra mayúscula, una minúscula y un número
-    if len(password) < 8:
+    if not password or not isinstance(password, str):
         return False
+    return re.match(REGEX_PASSWORD, password) is not None
+
+def validate_phone(phone):
+    """
+    Valida un número de teléfono
     
-    has_uppercase = any(c.isupper() for c in password)
-    has_lowercase = any(c.islower() for c in password)
-    has_digit = any(c.isdigit() for c in password)
+    Args:
+        phone (str): Número de teléfono a validar
+        
+    Returns:
+        bool: True si es válido, False en caso contrario
+    """
+    if not phone or not isinstance(phone, str):
+        return False
+    return re.match(REGEX_PHONE, phone) is not None
+
+def validate_name(name):
+    """
+    Valida un nombre
     
-    return has_uppercase and has_lowercase and has_digit
+    Args:
+        name (str): Nombre a validar
+        
+    Returns:
+        bool: True si es válido, False en caso contrario
+    """
+    if not name or not isinstance(name, str):
+        return False
+    return re.match(REGEX_NAME, name) is not None
+
+def sanitize_html(text):
+    """
+    Sanitiza texto para prevenir XSS
+    
+    Args:
+        text (str): Texto a sanitizar
+        
+    Returns:
+        str: Texto sanitizado
+    """
+    if not text or not isinstance(text, str):
+        return text
+    return html.escape(text)
+
+def sanitize_input(data):
+    """
+    Sanitiza todos los valores de texto en un diccionario o lista
+    
+    Args:
+        data (dict/list): Datos a sanitizar
+        
+    Returns:
+        dict/list: Datos sanitizados
+    """
+    if isinstance(data, dict):
+        return {k: sanitize_input(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [sanitize_input(item) for item in data]
+    elif isinstance(data, str):
+        return sanitize_html(data)
+    else:
+        return data
+
+# Schemas de Marshmallow para validación
+
+class UserSchema(Schema):
+    """Schema para validación de usuarios"""
+    username = fields.Str(required=True, validate=lambda s: re.match(REGEX_USERNAME, s))
+    email = fields.Email(required=True)
+    password = fields.Str(required=True, validate=lambda s: re.match(REGEX_PASSWORD, s))
+    first_name = fields.Str(required=True, validate=lambda s: re.match(REGEX_NAME, s))
+    last_name = fields.Str(required=True, validate=lambda s: re.match(REGEX_NAME, s))
+    role = fields.Str(required=True, validate=lambda s: s in ['admin', 'staff'])
+
+class VisitorSchema(Schema):
+    """Schema para validación de visitantes"""
+    name = fields.Str(required=True, validate=lambda s: re.match(REGEX_NAME, s))
+    email = fields.Email(required=True)
+    phone = fields.Str(required=True, validate=lambda s: re.match(REGEX_PHONE, s))
+
+class EventSchema(Schema):
+    """Schema para validación de eventos"""
+    title = fields.Str(required=True, validate=lambda s: len(s) >= 3 and len(s) <= 100)
+    description = fields.Str(required=True)
+    location = fields.Str(required=True)
+    start_date = fields.DateTime(required=True)
+    end_date = fields.DateTime(required=True)
+    capacity = fields.Int(required=True, validate=lambda n: n > 0)
+    event_type = fields.Str(required=False)
+
+class RegistrationSchema(Schema):
+    """Schema para validación de registros"""
+    visitor_id = fields.Int(required=True)
+    event_id = fields.Int(required=True)
+    registration_code = fields.Str(required=False, validate=lambda s: s is None or re.match(REGEX_REGISTRATION_CODE, s))
+    status = fields.Str(required=False, validate=lambda s: s in ['REGISTERED', 'CHECKED_IN', 'NO_SHOW', 'CANCELED'])
+    notes = fields.Str(required=False)
+
+def validate_json_schema(data, schema_class):
+    """
+    Valida datos contra un schema de Marshmallow
+    
+    Args:
+        data (dict): Datos a validar
+        schema_class (Schema): Clase de schema a utilizar
+        
+    Returns:
+        tuple: (bool, dict) - Éxito de validación y datos validados o errores
+    """
+    schema = schema_class()
+    try:
+        # Validar y deserializar
+        validated_data = schema.load(data)
+        return True, validated_data
+    except ValidationError as err:
+        return False, err.messages
+
+def create_error_response(error_code, message, details=None):
+    """
+    Crea una respuesta de error estandarizada
+    
+    Args:
+        error_code (str): Código de error
+        message (str): Mensaje de error
+        details (dict, optional): Detalles adicionales
+        
+    Returns:
+        dict: Respuesta de error
+    """
+    response = {
+        "status": "error",
+        "code": error_code,
+        "message": message
+    }
+    
+    if details:
+        response["details"] = details
+        
+    return response
 
 def validate_date_range(start_date, end_date):
     """
