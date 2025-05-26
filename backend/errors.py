@@ -43,8 +43,73 @@ ERROR_CODES = {
     
     # Errores del sistema
     'SYSTEM_ERROR': 'Error interno del sistema',
-    'MAINTENANCE_MODE': 'Sistema en mantenimiento'
+    'MAINTENANCE_MODE': 'Sistema en mantenimiento',
+
+    # Errores JWT
+    'AUTH_FRESH_TOKEN_REQUIRED': 'Se requiere un token fresco',
+    'AUTH_CSRF_ERROR': 'Error de CSRF' # Aunque CSRFError no se manejará con un loader de jwt aquí
 }
+
+from flask_jwt_extended.exceptions import (
+    ExpiredSignatureError,
+    InvalidHeaderError,  # Usado para referencia, manejado por invalid_token_loader
+    NoAuthorizationError, # Usado para referencia, manejado por unauthorized_loader
+    WrongTokenError,  # Usado para referencia, manejado por invalid_token_loader
+    RevokedTokenError,
+    FreshTokenRequired,
+    CSRFError  # No se manejará con un loader de jwt en register_jwt_error_handlers
+)
+
+def register_jwt_error_handlers(jwt):
+    """
+    Registra manejadores de errores específicos de JWT utilizando los decoradores de JWTManager.
+    
+    Args:
+        jwt: Instancia de JWTManager
+    """
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        """Manejador para tokens expirados."""
+        return create_error_response('AUTH_EXPIRED_TOKEN', 'El token ha expirado'), 401
+
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error_string):
+        """
+        Manejador para tokens inválidos. Esto cubre varios escenarios como
+        InvalidHeaderError y WrongTokenError. Se intenta diferenciar el mensaje
+        basado en el error_string.
+        """
+        # Heurística para diferenciar el tipo de error de token inválido
+        if 'header' in error_string.lower():
+            # Corresponde a InvalidHeaderError
+            message = 'Encabezado de autorización inválido'
+        elif 'token type' in error_string.lower() or 'wrong type' in error_string.lower():
+            # Corresponde a WrongTokenError
+            message = 'Token incorrecto (ej. se esperaba access pero se recibió refresh)'
+        else:
+            # Mensaje genérico para otros errores de token inválido
+            message = f'Token inválido o malformado: {error_string}'
+        return create_error_response('AUTH_INVALID_TOKEN', message), 401
+
+    @jwt.unauthorized_loader
+    def missing_token_callback(error_string):
+        """Manejador para cuando falta el token de autorización (NoAuthorizationError)."""
+        # error_string usualmente es algo como "Missing Authorization Header"
+        return create_error_response('AUTH_MISSING_TOKEN', 'Token de autorización no encontrado'), 401
+
+    @jwt.revoked_token_loader
+    def revoked_token_callback(jwt_header, jwt_payload):
+        """Manejador para tokens que han sido revocados."""
+        return create_error_response('AUTH_INVALID_TOKEN', 'El token ha sido revocado'), 401
+
+    @jwt.needs_fresh_token_loader
+    def fresh_token_required_callback(jwt_header, jwt_payload):
+        """Manejador para cuando se requiere un token fresco pero se proporcionó uno no fresco."""
+        return create_error_response('AUTH_FRESH_TOKEN_REQUIRED', 'Se requiere un token fresco'), 401
+
+    # Nota: CSRFError no se maneja aquí porque flask-jwt-extended no proporciona
+    # un decorador de JWTManager específico para ello (ej. @jwt.csrf_error_loader).
+    # CSRFError típicamente se maneja a nivel de aplicación con @app.errorhandler(CSRFError).
 
 def register_error_handlers(app):
     """
